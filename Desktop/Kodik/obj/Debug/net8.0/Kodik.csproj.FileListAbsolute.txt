@@ -1,0 +1,14 @@
+C:\Users\matve\Desktop\Kodik\bin\Debug\net8.0\Kodik.exe
+C:\Users\matve\Desktop\Kodik\bin\Debug\net8.0\Kodik.deps.json
+C:\Users\matve\Desktop\Kodik\bin\Debug\net8.0\Kodik.runtimeconfig.json
+C:\Users\matve\Desktop\Kodik\bin\Debug\net8.0\Kodik.dll
+C:\Users\matve\Desktop\Kodik\bin\Debug\net8.0\Kodik.pdb
+C:\Users\matve\Desktop\Kodik\obj\Debug\net8.0\Kodik.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\matve\Desktop\Kodik\obj\Debug\net8.0\Kodik.AssemblyInfoInputs.cache
+C:\Users\matve\Desktop\Kodik\obj\Debug\net8.0\Kodik.AssemblyInfo.cs
+C:\Users\matve\Desktop\Kodik\obj\Debug\net8.0\Kodik.csproj.CoreCompileInputs.cache
+C:\Users\matve\Desktop\Kodik\obj\Debug\net8.0\Kodik.dll
+C:\Users\matve\Desktop\Kodik\obj\Debug\net8.0\refint\Kodik.dll
+C:\Users\matve\Desktop\Kodik\obj\Debug\net8.0\Kodik.pdb
+C:\Users\matve\Desktop\Kodik\obj\Debug\net8.0\Kodik.genruntimeconfig.cache
+C:\Users\matve\Desktop\Kodik\obj\Debug\net8.0\ref\Kodik.dll
