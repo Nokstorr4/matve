@@ -164,7 +164,7 @@ else
 // Сохранение ошибок в txt файл. true - добавляет в конец.   
     try
     {
-    using (StreamWriter writer = new StreamWriter("C:\\Users\\matve\\Desktop\\KOD\\Ошибки.txt", true)) 
+    using (StreamWriter writer = new StreamWriter("C:\Users\matve\Desktop\KOD\Ошибки.txt", true)) 
     {
     writer.WriteLine(errorMessage);
     }
@@ -176,6 +176,143 @@ else
     Console.WriteLine($"Ошибка обработана. Подробности записаны в Ошибки.txt");
 
 
+// Реализация событий
+public static class FileManagerEvents
+{   
+     public static event Action<string> OnDirectoryChanged;
+    public static event Action<string, string> OnFileCopied;
+    public static event Action<string> OnFileDeleted;
+    public static event Action<string> OnFileInfoRequested;
+    public static event Action<int> OnPageChanged;
+
+    public static void RaiseDirectoryChanged(string path) => OnDirectoryChanged?.Invoke(C:\Users\matve\Desktop\KOD);
+    public static void RaiseFileCopied(string source, string destination) => OnFileCopied?.Invoke(source, destination);
+    public static void RaiseFileDeleted(string path) => OnFileDeleted?.Invoke(C:\Users\matve\Desktop\KOD\feature.txt);
+    public static void RaiseFileInfoRequested(string path) => OnFileInfoRequested?.Invoke(C:\Users\matve\Desktop\KOD\feature.txt);
+    public static void RaisePageChanged(int page) => OnPageChanged?.Invoke(C:\Users\matve\Desktop\KOD\feature.txt);
+}
+
+public static class UIManager
+{
+  private string  File = File.Kracker;
+   private string path = "C:\Users\matve\Desktop\KOD\feature.txt";
+    private string patifa = "C:\Users\matve\Desktop\KOD";
+    private int one = 1;
+   private int two = 2;
+   
+  -----------------------------------------
+if (Action OnDirectoryChanged)
+{
+    Console.WriteLine("Файл" + File + "изменил директорию на " + path);
+}
+else
+{
+    Console.WriteLine("Директория не найдена");
+}
+-------------------------------------------
+if(Action OnFileCopied)
+{
+Console.WriteLine("Файл" + File + "Скопирован в директорию" + patifa );
+}
+else
+{
+    Console.WriteLine("Директория не найдена");
+}
+-------------------------------------------
+if(Action OnFileDeleted)
+{
+Console.WriteLine("Файл" + File + "Удален" );
+}
+else
+{
+    Console.WriteLine("Файл не найден");
+}
+-------------------------------------------
+if(Action OnFileInfoRequested)
+{
+Console.WriteLine("Файл" + File + "Перенесен в директорию" + patifa );
+}
+else
+{
+    Console.WriteLine("Директория не найдена");
+}
+-------------------------------------------
+if(Action OnPageChanged)
+{
+    Console.WriteLine("Страница" + one "Изменена на" + two);
+}
+else
+{
+    Console.WriteLine("Страница не найдена");
+}
+}
+// Обновленный процесс обработки команд
+private static readonly Dictionary<string, Action<string[]>> commands = new()
+{
+    { "copy", args => FileManagerEvents.RaiseFileCopied(args[0], args[1]) },
+    { "delete", args => FileManagerEvents.RaiseFileDeleted(args[0]) },
+    { "info", args => FileManagerEvents.RaiseFileInfoRequested(args[0]) },
+    { "cd", args => FileManagerEvents.RaiseDirectoryChanged(args[0]) },
+    { "up", _ => FileManagerEvents.RaisePageChanged(-1) },
+    { "down", _ => FileManagerEvents.RaisePageChanged(1) }
+}
+
+public static void ProcessCommand(string input)
+{
+    var parts = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+    if (parts.Length == 0 || !commands.ContainsKey(parts[0]))
+    {
+        Console.WriteLine("Неизвестная команда.");
+        return;
+    }
+
+    commands[parts[0]].Invoke(parts.Skip(1).ToArray());
+}
+
+// Добавление поддержки истории команд
+public static class HistoryManager
+private string = new;
+{
+    private static readonly List<string> history = new();
+    private static int currentIndex = -1;
+
+    public static void AddCommand(string command)
+    {
+        history.Add(command);
+        if (history.Count > 10) history.RemoveAt(0);
+        currentIndex = history.Count;
+    }
+
+    public static string GetPreviousCommand()
+    {
+        if (currentIndex > 0) currentIndex--;
+        return history.ElementAtOrDefault(currentIndex) ?? string.Empty;
+    }
+
+    public static string GetNextCommand()
+    {
+        if (currentIndex < history.Count - 1) currentIndex++;
+        return history.ElementAtOrDefault(currentIndex) ?? string.Empty;
+    }
+}
 
 
-           
+// Улучшенная обработка ошибок
+public static class ErrorLogger
+{
+    private static readonly string errorDirectory = "errors";
+    private static readonly string errorFile = $"{errorDirectory}/{Guid.NewGuid()}_exception.txt";
+
+    static ErrorLogger()
+    {
+        if (!Directory.Exists(errorDirectory))
+        {
+            Directory.CreateDirectory(errorDirectory);
+        }
+    }
+
+    public static void LogError(Exception ex)
+    {
+        File.AppendAllText(errorFile, $"{DateTime.Now}: {ex.Message}{Environment.NewLine}");
+    }
+}
